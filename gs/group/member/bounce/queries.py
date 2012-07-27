@@ -8,7 +8,7 @@ from gs.database import getTable, getSession
 
 class BounceQuery(object):
     
-    def __init__(self, context):
+    def __init__(self):
         self.bounceTable = getTable('bounce')
         self.auditEventTable = getTable('audit_event')
 
