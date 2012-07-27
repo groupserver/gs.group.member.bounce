@@ -5,6 +5,8 @@ import sqlalchemy as sa
 from sqlalchemy.exc import NoSuchTableError
 from zope.sqlalchemy import mark_changed
 from gs.database import getTable, getSession
+from audit import SUBSYSTEM, DISABLE
+LAST_NUM_DAYS = 60
 
 class BounceQuery(object):
     
