@@ -53,4 +53,3 @@ setup(name='gs.group.member.bounce',
     # -*- Entry points: -*-
     """,
 )
-
