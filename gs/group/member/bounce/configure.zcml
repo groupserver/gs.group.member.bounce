@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configure xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page 
+    for="Products.GSContent.interfaces.IGSSiteFolder"
+    name="gs-group-member-bounce.html"
+    class=".handlebounce.HandleBounce"
+    permission="zope2.Public"/>
+
+</configure>
