@@ -43,9 +43,11 @@ setup(name='gs.group.member.bounce',
         'gs.auth.token',
         'gs.content.form',
         'gs.database',
+        'gs.profile.notify',
+        'Products.CustomUserFolder',
         'Products.GSAuditTrail',
-        'Products.XWFCore',
         'Products.GSGroup',
+        'Products.XWFCore',
     ],
     entry_points="""
     # -*- Entry points: -*-
