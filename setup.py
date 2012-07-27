@@ -32,14 +32,17 @@ setup(name='gs.group.member.bounce',
     zip_safe=False,
     install_requires=[
         'setuptools',
+        'pytz',
+        'sqlalchemy',
         'zope.component',
         'zope.cachedescriptors',
         'zope.formlib',
         'zope.interface',
         'zope.schema',
+        'zope.sqlalchemy'
         'gs.auth.token',
         'gs.content.form',
-        # -*- Extra requirements: -*-
+        'gs.database',
     ],
     entry_points="""
     # -*- Entry points: -*-
