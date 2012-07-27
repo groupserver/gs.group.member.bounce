@@ -39,7 +39,7 @@ setup(name='gs.group.member.bounce',
         'zope.formlib',
         'zope.interface',
         'zope.schema',
-        'zope.sqlalchemy'
+        'zope.sqlalchemy',
         'gs.auth.token',
         'gs.content.form',
         'gs.database',
