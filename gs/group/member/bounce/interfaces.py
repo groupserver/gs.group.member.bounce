@@ -10,9 +10,9 @@ class IGSBounceHandler(Interface):
                               u'is bouncing',
                           required=True)
 
-    groupId = ASCIILine(title=u'Group Identifier',
-                        description=u'The identifier of the group that sent '\
-                            'the original email message.',
+    groupEmail = ASCIILine(title=u'Group Email Address',
+                        description=u'The email of the of the group that '\
+                            'received the bounce notification.',
                         required=True)
 
     token = AuthToken(title=u'Token',

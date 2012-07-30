@@ -5,7 +5,7 @@ from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from gs.auth.token import log_auth_error
-from gs.content.form import SiteForm
+from gs.group.messages.add.base import ListInfoForm
 from gs.profile.notify.notifyuser import NotifyUser
 from Products.CustomUserFolder.userinfo import IGSUserInfo
 from handler import Handler, NO_NOTIFY, NOTIFY_BOUNCE, NOTIFY_DISABLED
@@ -14,14 +14,14 @@ from interfaces import IGSBounceHandler
 class NoUser(Exception):
     pass
 
-class HandleBounce(SiteForm):
+class HandleBounce(ListInfoForm):
     label = u'Handle a bounce'
     pageTemplateFileName = 'browser/templates/handlebounce.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
     form_fields = form.Fields(IGSBounceHandler, render_context=False)
     
     def __init__(self, context, request):
-        SiteForm.__init__(self, context, request)
+        ListInfoForm.__init__(self, context, request)
         self.site = context
 
     @Lazy
@@ -38,7 +38,19 @@ class HandleBounce(SiteForm):
         retval = IGSUserInfo(user)
         return retval
 
-    @form.action(label=u'Check', failure='handle_the_jandal_failure')
+    def site_from_email(self, email):
+        site_root = self.context.site_root()
+        content = site_root.Content
+        siteId = self.get_site_id(email)
+        retval = getattr(content, siteId)
+        return retval
+
+    def groupInfo_from_email(self, site, email):
+        groupId = self.get_group_id(email)
+        retval = createObject('groupserver.GroupInfo', site, groupId)
+        return retval
+
+    @form.action(label=u'Handle', failure='handle_the_jandal_failure')
     def handle_the_jandal(self, action, data):
         emailAddress = data['userEmail']
         try:
@@ -46,9 +58,9 @@ class HandleBounce(SiteForm):
         except NoUser, nu:
             self.status = str(nu)
         else:
-            groupInfo = createObject('groupserver.GroupInfo', self.site, 
-                                     data['groupId'])
-            handler = Handler(self.context, groupInfo)
+            site = self.site_from_email(data['groupEmail'])
+            groupInfo = self.groupInfo_from_email(site, data['groupEmail'])
+            handler = Handler(site, groupInfo)
 
             notifyStatus = handler.process(userInfo, emailAddress)
             if notifyStatus == NOTIFY_BOUNCE:
