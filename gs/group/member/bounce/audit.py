@@ -192,4 +192,3 @@ class BounceHandlingAuditor(object):
           
         self.queries.store(e)
         log.info(e)
-        

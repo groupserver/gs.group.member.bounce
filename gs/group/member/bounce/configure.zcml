@@ -8,4 +8,12 @@
     class=".handlebounce.HandleBounce"
     permission="zope2.Public"/>
 
+  <!-- Auditor -->
+  <utility
+    name="groupserver.BounceHandling" 
+    factory=".audit.BounceHandlingAuditEventFactory"
+    provides="zope.component.interfaces.IFactory"
+    permission="zope.Public" 
+  />
+
 </configure>
