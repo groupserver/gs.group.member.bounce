@@ -1,3 +1,18 @@
+==========================
+``gs.group.member.bounce``
+==========================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Bouncing email reporting for GroupServer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+:Author: `Michael JasonSmith`_
+:Contact: Michael JasonSmith <mpj17@onlinegroups.net>
+:Date: 2013-03-19
+:Organization: `GroupServer.org`_
+:Copyright: This document is licensed under a
+  `Creative Commons Attribution-Share Alike 3.0 New Zealand License`_
+  by `OnlineGroups.Net`_.
+
 Introduction
 ============
 
@@ -89,6 +104,20 @@ if he or she has more than one email address.
 * A ``disabled`` notification will be sent if the email address has become
   unverified.
 
+Resources
+=========
+
+- Code repository: https://source.iopen.net/groupserver/gs.group.member.active
+- Questions and comments to http://groupserver.org/groups/development
+- Report bugs at https://redmine.iopen.net/projects/groupserver
+
+.. _GroupServer: http://groupserver.org/
+.. _GroupServer.org: http://groupserver.org/
+.. _OnlineGroups.Net: https://onlinegroups.net
+.. _Michael JasonSmith: http://groupserver.org/p/mpj17
+.. _Creative Commons Attribution-Share Alike 3.0 New Zealand License:
+   http://creativecommons.org/licenses/by-sa/3.0/nz/
+
 .. [#email] See ``gs.email`` for `an example 
             <http://source.iopen.net/groupserver/gs.email>`_
 .. [#smtp2gs] See
@@ -98,7 +127,5 @@ if he or she has more than one email address.
            transient errors are common. The current hard-coded rate of 5
            bounces in 60 days has been informed by the wisdom of bitter
            experience.
-
-.. _GroupServer: http://groupserver.org/
 
 ..  LocalWords:  VERP smtp http groupserver
