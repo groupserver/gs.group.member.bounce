@@ -1,5 +1,4 @@
 # coding=utf-8
-import json
 from zope.component import createObject
 from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
@@ -8,18 +7,20 @@ from gs.auth.token import log_auth_error
 from gs.group.messages.add.base import ListInfoForm
 from gs.profile.notify.notifyuser import NotifyUser
 from Products.CustomUserFolder.userinfo import IGSUserInfo
-from handler import Handler, NO_NOTIFY, NOTIFY_BOUNCE, NOTIFY_DISABLED
+from handler import Handler, NOTIFY_BOUNCE, NOTIFY_DISABLED
 from interfaces import IGSBounceHandler
+
 
 class NoUser(Exception):
     pass
+
 
 class HandleBounce(ListInfoForm):
     label = u'Handle a bounce'
     pageTemplateFileName = 'browser/templates/handlebounce.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
     form_fields = form.Fields(IGSBounceHandler, render_context=False)
-    
+
     def __init__(self, context, request):
         ListInfoForm.__init__(self, context, request)
         self.site = context
@@ -28,7 +29,7 @@ class HandleBounce(ListInfoForm):
     def acl_users(self):
         retval = self.context.acl_users
         return retval
-    
+
     def user_from_email(self, emailAddress):
         user = self.acl_users.get_userByEmail(emailAddress)
         if not user:
@@ -86,15 +87,15 @@ class HandleBounce(ListInfoForm):
         if ea in addresses:
             addresses.remove(ea)
         # TODO: convert to HTML
-        nDict =  {
-            'userInfo'      : userInfo,
-            'groupInfo'     : groupInfo,
-            'siteInfo'      : self.siteInfo,
-            'supportEmail'  : self.siteInfo.get_support_email(),
-            'bounced_email' : emailAddress,}
+        nDict = {
+            'userInfo': userInfo,
+            'groupInfo': groupInfo,
+            'siteInfo': self.siteInfo,
+            'supportEmail': self.siteInfo.get_support_email(),
+            'bounced_email': emailAddress, }
         if addresses:
-            nu.send_notification('bounce_detection', n_dict = nDict,
-                                 email_only = addresses)
+            nu.send_notification('bounce_detection', n_dict=nDict,
+                                 email_only=addresses)
 
     def notify_disabled(self, groupInfo, userInfo, emailAddress):
         nu = NotifyUser(userInfo.user, self.siteInfo)
@@ -102,12 +103,12 @@ class HandleBounce(ListInfoForm):
         ea = emailAddress.lower()
         if ea in addresses:
             addresses.remove(ea)
-        nDict =  {
-            'userInfo'      : userInfo,
-            'groupInfo'     : groupInfo,
-            'siteInfo'      : self.siteInfo,
-            'supportEmail'  : self.siteInfo.get_support_email(),
-            'bounced_email' : emailAddress,}
+        nDict = {
+            'userInfo': userInfo,
+            'groupInfo': groupInfo,
+            'siteInfo': self.siteInfo,
+            'supportEmail': self.siteInfo.get_support_email(),
+            'bounced_email': emailAddress, }
         if addresses:
-            nu.send_notification('disabled_email', n_dict = nDict,
-                                 email_only = addresses)
+            nu.send_notification('disabled_email', n_dict=nDict,
+                                 email_only=addresses)
