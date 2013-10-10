@@ -7,7 +7,7 @@ Bouncing email reporting for GroupServer
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>
-:Date: 2013-03-19
+:Date: 2013-10-10
 :Organization: `GroupServer.org`_
 :Copyright: This document is licensed under a
   `Creative Commons Attribution-Share Alike 3.0 New Zealand License`_
@@ -52,11 +52,10 @@ set when communicating with the SMTP server [#email]_::
   │└────────────────┘│
   └──────────────────┘
 
-With the **VERP** system, which this product supports, if the SMTP server
-cannot deliver the message to the ``To`` address in the envelope it will
-sent the message back. To send the message back a new message is
-constructed. The ``To`` address in the envelope of the new message is made
-from the original ``To`` and ``From`` addresses::
+The **VERP** system, which this product supports, allows an SMTP server to
+report a bounce. If the server cannot deliver a message it will send the
+message back. The ``To`` address in the envelope of the returned message is
+made from the original ``To`` and ``From`` addresses::
 
    listId+userMailbox=user.domain@this.server
 
