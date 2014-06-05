@@ -1,14 +1,25 @@
 Changelog
 =========
 
-1.0 - Unreleased
------------------
+2.2.0 (2014-06-04)
+------------------
 
-* Split gs.profile.signup off from Products.GSProfile.
-* Reordered the pages involved in sign up:
-  1. Sign Up
-  2. Set Password
-  3. Change Profile
-  4. Verify Email
-* The Set Password page now takes in the password /en clear/.
+* Moving the SQL related to the creating of the ``bounce`` table
+  here.
 
+2.1.1 (2013-10-10)
+------------------
+
+* Whitespace cleanup.
+* PEP-8 work.
+* Update of the product metadata.
+
+2.1.0 (2012-10-30)
+------------------
+
+* Adding an auditor
+
+2.0.0 (2012-07-31)
+------------------
+
+* Initial version, mistakenly called 2.0.0.
