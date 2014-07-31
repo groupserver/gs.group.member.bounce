@@ -1,4 +1,18 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+############################################################################
+#
+# Copyright © 2014 OnlineGroups.net and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+############################################################################
+from __future__ import absolute_import, unicode_literals
 from zope.component import createObject
 from zope.cachedescriptors.property import Lazy
 from zope.formlib import form
@@ -7,8 +21,8 @@ from gs.auth.token import log_auth_error
 from gs.group.messages.add.base import ListInfoForm
 from gs.profile.notify.notifyuser import NotifyUser
 from Products.CustomUserFolder.userinfo import IGSUserInfo
-from handler import Handler, NOTIFY_BOUNCE, NOTIFY_DISABLED
-from interfaces import IGSBounceHandler
+from .handler import Handler, NOTIFY_BOUNCE, NOTIFY_DISABLED
+from .interfaces import IGSBounceHandler
 
 
 class NoUser(Exception):
@@ -16,7 +30,7 @@ class NoUser(Exception):
 
 
 class HandleBounce(ListInfoForm):
-    label = u'Handle a bounce'
+    label = 'Handle a bounce'
     pageTemplateFileName = 'browser/templates/handlebounce.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
     form_fields = form.Fields(IGSBounceHandler, render_context=False)
@@ -51,12 +65,12 @@ class HandleBounce(ListInfoForm):
         retval = createObject('groupserver.GroupInfo', site, groupId)
         return retval
 
-    @form.action(label=u'Handle', failure='handle_the_jandal_failure')
+    @form.action(label='Handle', failure='handle_the_jandal_failure')
     def handle_the_jandal(self, action, data):
         emailAddress = data['userEmail']
         try:
             userInfo = self.user_from_email(emailAddress)
-        except NoUser, nu:
+        except NoUser as nu:
             self.status = str(nu)
         else:
             site = self.site_from_email(data['groupEmail'])
@@ -69,15 +83,14 @@ class HandleBounce(ListInfoForm):
             elif notifyStatus == NOTIFY_DISABLED:
                 self.notify_disabled(groupInfo, userInfo, emailAddress)
 
-            self.status = u'Done'
+            self.status = 'Done'
 
     def handle_the_jandal_failure(self, action, data, errors):
         log_auth_error(self.context, self.request, errors)
         if len(errors) == 1:
-            self.status = u'<p>There is an error:</p>'
+            self.status = '<p>There is an error:</p>'
         else:
-            self.status = u'<p>There are errors:</p>'
-        assert type(self.status) == unicode
+            self.status = '<p>There are errors:</p>'
 
     def notify_bounce(self, groupInfo, userInfo, emailAddress):
         # Send a bounce notification to all the addresses that work.
