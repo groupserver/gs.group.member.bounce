@@ -16,7 +16,7 @@
     class=".groupbounces.GroupBounces"
     template="browser/templates/groupbounces.pt"
     permission="zope2.ManageProperties"/>
-
+  <!--The link to the page-->
   <browser:viewlet
     name="gs-group-member-bounce-past"
     for="gs.group.base.interfaces.IGSGroupMarker"
@@ -35,6 +35,13 @@
     permission="zope2.ManageUsers"
     weight="70"
     title="Recent Bounces" />
+
+  <browser:page
+    name="bounces.html"
+    for="Products.CustomUserFolder.interfaces.ICustomUser"
+    class=".profilebounces.ProfileBounces"
+    template="browser/templates/profilebounces.pt"
+    permission="zope2.ManageProperties"/>
 
   <!-- Auditor -->
   <utility

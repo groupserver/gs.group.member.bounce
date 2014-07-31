@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_full_layout/page">
+  <head>
+    <title metal:fill-slot="title">
+      Bounces:
+      <span tal:replace="view/userInfo/name"/>
+      <span tal:replace="view/siteInfo/name"/>
+    </title>
+  </head>
+  <body>
+    <ul metal:fill-slot="breadcrumb">
+      <li>
+        <a href="/" class="icon-alone">
+          <span aria-hidden="true" data-icon="&#x2302;"></span>
+          <span class="screen-reader-text">Site home page</span>
+        </a>
+      </li>
+      <li>
+        <a tal:attributes="href view/userInfo/url"
+           href="#"><strong tal:content="view/userInfo/name">Me!</strong></a>
+      </li>
+      <li>
+        Bounces
+      </li>
+    </ul>
+    <div id="gs-group-member-bounce-person-bounces"
+         metal:fill-slot="body"
+         tal:define="mod python:modules['Products.XWFCore.XWFUtils'];
+                     munge_date python:mod.munge_date;
+                     change_tz python:mod.change_timezone;">
+        <h1>Bounces</h1>
+        <p class="muted">
+          Below are the most recent bounces caused by posts being sent to
+          you.
+        </p>
+        <table class="table table-striped">
+          <caption class="hide">
+            Bounces for
+            <span tal:content="view/userInfo/name"
+                  class="fn">Me</span>
+          </caption>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>From</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="bounce view/bounces">
+              <td tal:define="bd bounce/date;
+                              d python:change_tz(bd, 'UTC').replace(microsecond=0);
+                              date python:munge_date(view.context, bd)"
+                  tal:attributes="title string:${d/isoformat}Z"
+                  tal:content="date">Date</td>
+              <td>
+                <a tal:attributes="href bounce/group/relativeURL"
+                   tal:content="bounce/group/name">User</a>
+              </td>
+              <td>
+                <code tal:content="bounce/email">email</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div><!--gs-group-member-bounce-group-bounces-->
+  </body>
+</html>

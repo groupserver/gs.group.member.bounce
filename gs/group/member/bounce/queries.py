@@ -105,7 +105,7 @@ class GroupBounceQuery(object):
         retval = dict([(i, x[i]) for i in items])
         return retval
 
-    def get_bounces_for_group(self, siteId, groupId, limit=20):
+    def get_bounces_for_group(self, siteId, groupId, limit=100):
         bt = self.bounceTable
 
         s = bt.select(order_by=sa.desc(bt.c.date), limit=limit)
@@ -128,6 +128,46 @@ class GroupBounceQuery(object):
         s = sa.select(cols)
         s.append_whereclause(bt.c.site_id == siteId)
         s.append_whereclause(bt.c.group_id == groupId)
+        now = datetime.datetime.now(UTC)
+        lastWeek = (now - datetime.timedelta(7))
+        s.append_whereclause(bt.c.date >= lastWeek)
+
+        session = getSession()
+        r = session.execute(s)
+        retval = r.scalar()
+        if retval is None:
+            retval = 0
+
+        assert retval >= 0
+        return retval
+
+
+class ProfileBounceQuery(GroupBounceQuery):
+    'Like the GroupBounceQuery, but for people'
+
+    def get_bounces_for_person(self, siteId, userId, limit=100):
+        bt = self.bounceTable
+
+        s = bt.select(order_by=sa.desc(bt.c.date), limit=limit)
+        s.append_whereclause(bt.c.site_id == siteId)
+        s.append_whereclause(bt.c.user_id == userId)
+
+        session = getSession()
+        r = session.execute(s)
+
+        m = ['site_id', 'group_id', 'user_id', 'email', 'date']
+        retval = [self.map_x(x, m) for x in r]
+
+        assert type(retval) == list
+        return retval
+
+    def n_bounces_in_last_week(self, siteId, userId):
+        bt = self.bounceTable
+
+        cols = [sa.func.count()]
+        s = sa.select(cols)
+        s.append_whereclause(bt.c.site_id == siteId)
+        s.append_whereclause(bt.c.user_id == userId)
         now = datetime.datetime.now(UTC)
         lastWeek = (now - datetime.timedelta(7))
         s.append_whereclause(bt.c.date >= lastWeek)
