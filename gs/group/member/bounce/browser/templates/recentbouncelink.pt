@@ -1,0 +1,11 @@
+<li xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+  <a tal:attributes="href string:${view/groupInfo/relativeURL}/bounces.html"
+    href="bounces.html">
+    <span class="label"
+          tal:define="s python:'s' if view.nBounces != 1 else ''"
+          tal:content="string:${view/nBounces} bounce${s}">Bounces</span>
+    in the last week.
+  </a>
+</li>

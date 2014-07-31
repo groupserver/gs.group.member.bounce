@@ -1,19 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configure xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser">
+           xmlns:browser="http://namespaces.zope.org/browser">
 
-  <browser:page 
-    for="Products.GSContent.interfaces.IGSSiteFolder"
+  <include package="zope.viewlet" file="meta.zcml" />
+
+  <browser:page
     name="gs-group-member-bounce.html"
+    for="Products.GSContent.interfaces.IGSSiteFolder"
     class=".handlebounce.HandleBounce"
     permission="zope2.Public"/>
 
+  <browser:page
+    name="bounces.html"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class=".groupbounces.GroupBounces"
+    template="browser/templates/groupbounces.pt"
+    permission="zope2.ManageProperties"/>
+
+  <browser:viewlet
+    name="gs-group-member-bounce-past"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    manager="gs.group.member.info.interfaces.IGroupMemberAdminLinks"
+    class=".bouncelink.PastBounceLink"
+    template="browser/templates/bouncelink.pt"
+    permission="zope2.ManageUsers"
+    weight="70"
+    title="Bounces" />
+  <browser:viewlet
+    name="gs-group-member-bounce-recent"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    manager="gs.group.member.info.interfaces.IGroupMemberAdminLinks"
+    class=".bouncelink.RecentBounceLink"
+    template="browser/templates/recentbouncelink.pt"
+    permission="zope2.ManageUsers"
+    weight="70"
+    title="Recent Bounces" />
+
   <!-- Auditor -->
   <utility
-    name="groupserver.BounceHandling" 
+    name="groupserver.BounceHandling"
     factory=".audit.BounceHandlingAuditEventFactory"
     provides="zope.component.interfaces.IFactory"
-    permission="zope.Public" 
-  />
+    permission="zope.Public" />
 
 </configure>
