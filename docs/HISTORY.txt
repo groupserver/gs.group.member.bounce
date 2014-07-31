@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.3.0 (2014-07-31)
+------------------
+
+* Added the *Bounce* page the group, with viewlets linking to the page
+* Added the *Bounce* page the profile; currently unlinked
+* Unicode update
+
 2.2.0 (2014-06-04)
 ------------------
 

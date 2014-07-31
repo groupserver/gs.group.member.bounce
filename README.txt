@@ -7,10 +7,10 @@ Bouncing email reporting for GroupServer
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>
-:Date: 2013-10-10
+:Date: 2014-07-31
 :Organization: `GroupServer.org`_
 :Copyright: This document is licensed under a
-  `Creative Commons Attribution-Share Alike 3.0 New Zealand License`_
+  `Creative Commons Attribution-Share Alike 4.0 International License`_
   by `OnlineGroups.Net`_.
 
 Introduction
@@ -103,10 +103,23 @@ if he or she has more than one email address.
 * A ``disabled`` notification will be sent if the email address has become
   unverified.
 
+Pages
+=====
+
+This product provides two pages: 
+
+* ``bounce.html`` in the group context lists the bounces that
+  occur in the group.
+* ``bounce.html`` in the profile context lists the bounces
+  associated with a person.
+
+The latter has not been linked, because currently (2014-07-31)
+the Profile page is a mess, and it needs to be refactored.
+
 Resources
 =========
 
-- Code repository: https://source.iopen.net/groupserver/gs.group.member.active
+- Code repository: https://source.iopen.net/groupserver/gs.group.member.bounce
 - Questions and comments to http://groupserver.org/groups/development
 - Report bugs at https://redmine.iopen.net/projects/groupserver
 
@@ -114,8 +127,8 @@ Resources
 .. _GroupServer.org: http://groupserver.org/
 .. _OnlineGroups.Net: https://onlinegroups.net
 .. _Michael JasonSmith: http://groupserver.org/p/mpj17
-.. _Creative Commons Attribution-Share Alike 3.0 New Zealand License:
-   http://creativecommons.org/licenses/by-sa/3.0/nz/
+..  _Creative Commons Attribution-Share Alike 4.0 International License:
+    http://creativecommons.org/licenses/by-sa/4.0/
 
 .. [#email] See ``gs.email`` for `an example 
             <http://source.iopen.net/groupserver/gs.email>`_
