@@ -4,28 +4,21 @@
 
   <include package="zope.viewlet" file="meta.zcml" />
 
+  <!-- The page for registering bounces. -->
   <browser:page
     name="gs-group-member-bounce.html"
     for="Products.GSContent.interfaces.IGSSiteFolder"
     class=".handlebounce.HandleBounce"
     permission="zope2.Public"/>
 
+  <!-- The page for displaying the bounces in a group-->
   <browser:page
     name="bounces.html"
     for="gs.group.base.interfaces.IGSGroupMarker"
     class=".groupbounces.GroupBounces"
     template="browser/templates/groupbounces.pt"
     permission="zope2.ManageProperties"/>
-  <!--The link to the page-->
-  <browser:viewlet
-    name="gs-group-member-bounce-past"
-    for="gs.group.base.interfaces.IGSGroupMarker"
-    manager="gs.group.member.info.interfaces.IGroupMemberAdminLinks"
-    class=".bouncelink.PastBounceLink"
-    template="browser/templates/bouncelink.pt"
-    permission="zope2.ManageUsers"
-    weight="70"
-    title="Bounces" />
+  <!-- The link to the Bounces page from the Group page -->
   <browser:viewlet
     name="gs-group-member-bounce-recent"
     for="gs.group.base.interfaces.IGSGroupMarker"
@@ -35,13 +28,67 @@
     permission="zope2.ManageUsers"
     weight="70"
     title="Recent Bounces" />
+  <browser:viewlet
+    name="gs-group-member-bounce-past"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    manager="gs.group.member.info.interfaces.IGroupMemberAdminLinks"
+    class=".bouncelink.PastBounceLink"
+    template="browser/templates/bouncelink.pt"
+    permission="zope2.ManageUsers"
+    weight="70"
+    title="Bounces" />
 
+  <!-- The bounces for a person. Currently unlinked -->
   <browser:page
     name="bounces.html"
     for="Products.CustomUserFolder.interfaces.ICustomUser"
     class=".profilebounces.ProfileBounces"
     template="browser/templates/profilebounces.pt"
     permission="zope2.ManageProperties"/>
+
+  <!--===============-->
+  <!-- Notifications -->
+  <!--===============-->
+
+  <!-- The "bouncing address" notification -->
+  <browser:page
+    name="gs-group-member-bounce-bouncing.html"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class=".notifications.NotifyBounce"
+    template="browser/templates/notify-bouncing.pt"
+    permission="zope2.View"/>
+  <browser:page
+    name="gs-group-member-bounce-bouncing.txt"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class=".notifications.NotifyBounceText"
+    template="browser/templates/notify-bouncing-txt.pt"
+    permission="zope2.View"/>
+  <!-- The "email address disabled" notification to the group member -->
+  <!--browser:page
+    name="gs-group-member-bounce-disabled.html"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class="gs.content.email.base.GroupEmail"
+    template="browser/templates/notify-disabled.pt"
+    permission="zope2.View"/>
+  <browser:page
+    name="gs-group-member-bounce-disabled.txt"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class="gs.content.email.base.GroupEmail"
+    template="browser/templates/notify-disabled-txt.pt"
+    permission="zope2.View"/-->
+  <!-- The "email address disabled" notification to an admin -->
+  <!--browser:page
+    name="gs-group-member-bounce-disabled-admin.html"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class="gs.content.email.base.GroupEmail"
+    template="browser/templates/notify-admin-disabled.pt"
+    permission="zope2.View"/>
+  <browser:page
+    name="gs-group-member-bounce-disabled-admin.txt"
+    for="gs.group.base.interfaces.IGSGroupMarker"
+    class="gs.content.email.base.GroupEmail"
+    template="browser/templates/notify-admin-disabled-txt.pt"
+    permission="zope2.View"/-->
 
   <!-- Auditor -->
   <utility

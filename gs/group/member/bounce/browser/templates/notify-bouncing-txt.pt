@@ -1,0 +1,46 @@
+<tal:block
+  define="userInfo options/userInfo | view/loggedInUserInfo;
+          email options/email | string:me@example.com;">Dear <tal:block content="userInfo/name">New Member</tal:block>,
+
+<tal:block
+  define="m string:A post from ${view/groupInfo/name} was send to you at your address ${email}. However, your email provider sent the post back to us. (This is known as an email bounce.)"
+           content="python:view.fill(m)" />
+
+<tal:block
+  define="m string:There are a few things that you can do to ensure that you get posts from ${view/groupInfo/name}."
+  content="python:view.fill(m)" />
+
+* Add the email address for the group to your email contacts:
+  <tal:block content="view/groupEmail">group@elists.example.com</tal:block>
+
+* Change which email address you use, either for the group, or
+  change your preferred email address for all your groups.
+  <tal:block content="string:${view/siteInfo/url}${userInfo/url}/emailsettings.html"/>
+
+* Check that you have enough space with your email account. If
+  you run out of space email cannot be delivered to you.
+
+* Finally, the problem may be transient, in which case you should
+  do nothing.
+
+<tal:block
+  define="m string:If messages from any of your groups to ${email} have problems on five separate days in a sixty-day period then we will disable posting to that address. We will email you at this address if that happens."
+  content="python:view.fill(m)" />
+
+If you have any problems, email us at
+  <tal:block content="view/siteInfo/get_support_email">this address</tal:block>
+
+Kind regards,
+  The <tal:block content="view/siteInfo/name">Site</tal:block> Team
+
+------------------------------------------------------------------------
+
+Privacy
+  <tal:block content="string:${view/siteInfo/url}/policies/privacy"/>
+
+Acceptable Use
+  <tal:block content="string:${view/siteInfo/url}/policies/aup"/>
+
+Terms of Service
+  <tal:block content="string:${view/siteInfo/url}/policies/tos"/>
+</tal:block>

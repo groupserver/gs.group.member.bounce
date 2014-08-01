@@ -33,12 +33,13 @@ class Handler(object):
     def process(self, userInfo, emailAddress):
         # Get the list of previous bounces.
         bq = BounceQuery()
-        previousBounceDates, daysChecked = bq.previousBounceDates(emailAddress)
+        previousBounceDates, daysChecked = \
+            bq.previousBounceDates(emailAddress)
         # Record the bounce
         bq.addBounce(userInfo.id, self.groupInfo.id, self.siteInfo.id,
                      emailAddress)
-        auditor = BounceHandlingAuditor(self.context, userInfo, self.groupInfo,
-                                        self.siteInfo)
+        auditor = BounceHandlingAuditor(self.context, userInfo,
+                                        self.groupInfo, self.siteInfo)
         auditor.info(BOUNCE, emailAddress)
 
         retval = NO_NOTIFY

@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_email_layout/page">
+  <head>
+    <title metal:fill-slot="title"
+           tal:define="userInfo options/userInfo | view/loggedInUserInfo;">
+      Bouncing email:
+      <tal:block content="userInfo/name">The Administrator</tal:block>
+      <tal:bock content="view/groupInfo/name">This Group</tal:bock>:
+      <tal:block content="view/siteInfo/name">Site</tal:block>
+    </title>
+  </head>
+  <body>
+    <div metal:fill-slot="body"
+         tal:define="userInfo options/userInfo | view/loggedInUserInfo;
+                     email options/email | string:me@example.com;">
+      <p>
+        Dear
+        <span tal:content="userInfo/name">New Member</span>,
+      </p>
+      <!-- Explain what has happened.-->
+      <!--  * A post was sent to you -->
+      <!--  * You email provider sent it back -->
+      <p>
+        A post from
+        <a class="group"
+           tal:attributes="href view/groupInfo/url"
+           tal:content="view/groupInfo/name">this group</a>
+        was send to you at your address
+        <code class="email"
+              tal:content="email">your@email.example.com</code>.
+        However, your email provider sent the post back to us.
+        (This is known as an <em>email bounce.)</em>
+      </p>
+      <!--Explain what to do-->
+      <p>
+        There are a few things that you can do to ensure that you get
+        posts from
+        <span class="group"
+           tal:content="view/groupInfo/name">this group</span>.
+      </p>
+      <ul>
+        <li>
+          <!-- * Add the group email-address as a contact -->
+          Add the email address
+          <code class="email"
+                tal:content="view/groupEmail">group@elists.example.com</code>
+          to your email contacts.
+          These
+          <a title="Whitelist an email address"
+             href="http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address/">instructions for how to do add a contact</a>
+          may help you do this.
+        </li>
+        <li>
+          <!-- * Change which email address you use with the group -->
+          Change which email address you use, either
+          <a tal:attributes="title string:Your email settings at ${view/groupInfo/name};
+                             href string:${view/groupInfo/url}/email_settings.html"
+             href="#">for
+            <span class="group"
+                  tal:content="view/groupInfo/name">this group</span>,</a>
+          or
+          <a tal:attributes="title string:Your email settings at ${view/siteInfo/name};
+                             href string:${view/siteInfo/url}${userInfo/url}/emailsettings.html"
+              href="#">change your preferred email address for all your
+            groups.</a>
+        </li>
+        <li>
+          <!-- * Check that your inbox is not full -->
+          Check that you have enough space with your email account.
+          If you run out of space email cannot be delivered to you.
+        </li>
+        <li>
+          <!-- * Do nothing -->
+          Finally, the problem may be transient, in which case
+          you should do nothing.
+        </li>
+      </ul>
+      <!-- What we will do -->
+      <p>
+        If messages from any of your groups to
+        <code class="email"
+              tal:content="email">your@email.example.com</code>
+        have problems on five separate days in a sixty-day period
+        then we will disable posting to that address.
+        We will email you at this address if that happens.
+      </p>
+      <!--Troubleshooting/return/warranty/damage information-->
+      <p>
+        If you have any problems, email us at
+        <a tal:attributes="href python:view.get_support_email(userInfo, email);"
+           href="#"><code tal:content="view/siteInfo/get_support_email"/></a>.
+      </p>
+      <!--Website address-->
+      <p>
+        Kind regards<br/>
+        <span>The
+        <span tal:content="view/siteInfo/name">Site</span>
+        Team</span>
+      </p>
+    </div>
+  </body>
+</html>
