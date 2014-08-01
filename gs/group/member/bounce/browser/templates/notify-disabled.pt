@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_email_layout/page">
+  <head>
+    <title metal:fill-slot="title"
+           tal:define="userInfo options/userInfo | view/loggedInUserInfo;">
+      Disabled email:
+      <tal:block content="userInfo/name">The Administrator</tal:block>
+      <tal:bock content="view/groupInfo/name">This Group</tal:bock>:
+      <tal:block content="view/siteInfo/name">Site</tal:block>
+    </title>
+  </head>
+  <body>
+    <div metal:fill-slot="body"
+         tal:define="userInfo options/userInfo | view/loggedInUserInfo;
+                     email options/email | string:me@example.com;">
+      <p>
+        Dear
+        <span tal:content="userInfo/name">Member</span>,
+      </p>
+      <!-- Explain what has happened.-->
+      <p>
+        Your email address
+        <code class="email"
+              tal:content="email">your@email.example.com</code>
+        has been disabled &#8213; so you will no longer receive
+        posts at this address, nor can you post from this
+        address to any of your groups.
+        This is because posts to your email address
+        <code class="email"
+              tal:content="email">your@email.example.com</code>
+        have repeatedly been returned to us by your email
+        provider.
+      </p>
+      <!--Explain what to do-->
+      <!-- * Verify -->
+      <p>
+        To use this address in the future, visit
+        <a tal:attributes="title string:Your email settings at ${view/siteInfo/name};
+                           href string:${view/siteInfo/url}${userInfo/url}/emailsettings.html"
+           href="#">your <cite>Email settings</cite> page</a>
+        and verify the address
+        <code class="email"
+              tal:content="email">your@email.example.com</code>.
+      </p>
+      <!--Troubleshooting/return/warranty/damage information-->
+      <p>
+        If you have any problems, email us at
+        <a tal:attributes="href python:view.get_support_email(userInfo, email);"
+           href="#"><code tal:content="view/siteInfo/get_support_email"/></a>.
+      </p>
+      <!--Website address-->
+      <p>
+        Kind regards<br/>
+        <span>The
+        <span tal:content="view/siteInfo/name">Site</span>
+        Team</span>
+      </p>
+    </div>
+  </body>
+</html>

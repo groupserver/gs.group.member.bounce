@@ -69,3 +69,33 @@ class NotifyBounceText(NotifyBounce, TextMixin):
         super(NotifyBounceText, self).__init__(group, request)
         filename = 'bounce-from-{0}.txt'.format(self.groupInfo.id)
         self.set_header(filename)
+
+
+class NotifyDisabled(NotifyBounce):
+    def get_support_email(self, user, email):
+        subj = 'Disabled email'
+        uu = '{0}{1}'.format(self.siteInfo.url, user.url)
+        msg = '''I got a message saying that email address <{email}>
+has been disabled, because of posts from "{group}" <{groupUrl}> and...'''
+        b = msg.format(group=self.groupInfo.name, email=email,
+                       groupUrl=self.groupInfo.url)
+        fb = fill(b, width=74)
+        body = '''Hello,
+
+{b}
+
+Thanks,
+    {userName}
+    <{userUrl}>'''.format(b=fb, userUrl=uu, userName=user.name)
+        m = 'mailto:{to}?Subject={subj}&body={body}'
+        retval = m.format(to=self.email, subj=quote(subj),
+                          body=quote(body.encode(UTF8)))
+        return retval
+
+
+class NotifyDisabledText(NotifyDisabled, TextMixin):
+
+    def __init__(self, group, request):
+        super(NotifyDisabledText, self).__init__(group, request)
+        filename = 'disabled-from-{0}.txt'.format(self.groupInfo.id)
+        self.set_header(filename)

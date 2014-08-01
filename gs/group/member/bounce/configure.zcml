@@ -56,26 +56,26 @@
     for="gs.group.base.interfaces.IGSGroupMarker"
     class=".notifications.NotifyBounce"
     template="browser/templates/notify-bouncing.pt"
-    permission="zope2.View"/>
+    permission="zope2.View" />
   <browser:page
     name="gs-group-member-bounce-bouncing.txt"
     for="gs.group.base.interfaces.IGSGroupMarker"
     class=".notifications.NotifyBounceText"
     template="browser/templates/notify-bouncing-txt.pt"
-    permission="zope2.View"/>
+    permission="zope2.View" />
   <!-- The "email address disabled" notification to the group member -->
-  <!--browser:page
+  <browser:page
     name="gs-group-member-bounce-disabled.html"
     for="gs.group.base.interfaces.IGSGroupMarker"
-    class="gs.content.email.base.GroupEmail"
+    class=".notifications.NotifyDisabled"
     template="browser/templates/notify-disabled.pt"
-    permission="zope2.View"/>
+    permission="zope2.View" />
   <browser:page
     name="gs-group-member-bounce-disabled.txt"
     for="gs.group.base.interfaces.IGSGroupMarker"
-    class="gs.content.email.base.GroupEmail"
+    class=".notifications.NotifyDisabledText"
     template="browser/templates/notify-disabled-txt.pt"
-    permission="zope2.View"/-->
+    permission="zope2.View" />
   <!-- The "email address disabled" notification to an admin -->
   <!--browser:page
     name="gs-group-member-bounce-disabled-admin.html"
