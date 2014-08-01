@@ -10,7 +10,8 @@
   define="m string:There are a few things that you can do to ensure that you get posts from ${view/groupInfo/name}."
   content="python:view.fill(m)" />
 
-* Add the email address for the group to your email contacts:
+* Add and "whitelist" the email address for the group to your email
+  contacts:
   <tal:block content="view/groupEmail">group@elists.example.com</tal:block>
 
 * Change which email address you use, either for the group, or

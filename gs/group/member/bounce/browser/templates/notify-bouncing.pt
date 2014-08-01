@@ -31,7 +31,9 @@
         <code class="email"
               tal:content="email">your@email.example.com</code>.
         However, your email provider sent the post back to us.
-        (This is known as an <em>email bounce.)</em>
+        (This is known as an <em>email bounce;</em> you can see
+        <a tal:attributes="href string:${view/siteInfo/url}${userInfo/url}/bounces.html"
+          href="#">a list of recent bounces</a> in your profile.)
       </p>
       <!--Explain what to do-->
       <p>
@@ -43,7 +45,7 @@
       <ul>
         <li>
           <!-- * Add the group email-address as a contact -->
-          Add the email address
+          Add and <em>whitelist</em> the email address
           <code class="email"
                 tal:content="view/groupEmail">group@elists.example.com</code>
           to your email contacts.
