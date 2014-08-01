@@ -24,6 +24,9 @@ from gs.content.email.base import (GroupEmail, TextMixin)
 UTF8 = 'utf-8'
 
 
+# The normal bounce notification
+
+
 class NotifyBounce(GroupEmail):
 
     def __init__(self, group, request):
@@ -71,12 +74,16 @@ class NotifyBounceText(NotifyBounce, TextMixin):
         self.set_header(filename)
 
 
+# The Disabled email address notification
+
+
 class NotifyDisabled(NotifyBounce):
     def get_support_email(self, user, email):
         subj = 'Disabled email'
         uu = '{0}{1}'.format(self.siteInfo.url, user.url)
         msg = '''I got a message saying that email address <{email}>
-has been disabled, because of posts from "{group}" <{groupUrl}> and...'''
+has been disabled, because of returned posts from "{group}" <{groupUrl}>
+and...'''
         b = msg.format(group=self.groupInfo.name, email=email,
                        groupUrl=self.groupInfo.url)
         fb = fill(b, width=74)
@@ -98,4 +105,40 @@ class NotifyDisabledText(NotifyDisabled, TextMixin):
     def __init__(self, group, request):
         super(NotifyDisabledText, self).__init__(group, request)
         filename = 'disabled-from-{0}.txt'.format(self.groupInfo.id)
+        self.set_header(filename)
+
+
+# The Disabled email address notification to a group administrator
+
+
+class NotifyAdminDisabled(NotifyBounce):
+    def get_support_email(self, admin, user, email):
+        subj = 'Disabled member email'
+        uu = '{0}{1}'.format(self.siteInfo.url, user.url)
+        au = '{0}{1}'.format(self.siteInfo.url, admin.url)
+        msg = '''I got a message saying that email address <{email}>
+of my group member {user} <{userUrl}> has been disabled, because of
+returned posts from my group "{group}" <{groupUrl}> and...'''
+        b = msg.format(group=self.groupInfo.name, email=email,
+                       user=user.name, userUrl=uu,
+                       groupUrl=self.groupInfo.url)
+        fb = fill(b, width=74)
+        body = '''Hello,
+
+{b}
+
+Thanks,
+    {adminName}
+    <{adminUrl}>'''.format(b=fb, adminUrl=au, adminName=admin.name)
+        m = 'mailto:{to}?Subject={subj}&body={body}'
+        retval = m.format(to=self.email, subj=quote(subj),
+                          body=quote(body.encode(UTF8)))
+        return retval
+
+
+class NotifyAdminDisabledText(NotifyAdminDisabled, TextMixin):
+
+    def __init__(self, group, request):
+        super(NotifyDisabledText, self).__init__(group, request)
+        filename = 'admin-disabled-from-{0}.txt'.format(self.groupInfo.id)
         self.set_header(filename)

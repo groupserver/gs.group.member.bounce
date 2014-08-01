@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_email_layout/page">
+  <head>
+    <title metal:fill-slot="title"
+           tal:define="userInfo options/userInfo | view/loggedInUserInfo;">
+      Disabled email:
+      <tal:block content="userInfo/name">The user</tal:block>
+      <tal:bock content="view/groupInfo/name">This Group</tal:bock>:
+      <tal:block content="view/siteInfo/name">Site</tal:block>
+    </title>
+  </head>
+  <body>
+    <div metal:fill-slot="body"
+         tal:define="userInfo options/userInfo | view/loggedInUserInfo;
+                     adminInfo options/adminInfo | view/loggedInUserInfo;
+                     email options/email | string:me@example.com;">
+      <p>
+        Dear
+        <span class="fn" tal:content="adminInfo/name">Admin</span>,
+      </p>
+      <!-- Explain what has happened.-->
+      <p>
+        There is a problem with the email address of
+        <a class="fn"
+           tal:attributes="href string:${view/siteInfo/url}${userInfo/url}"
+           tal:content="userInfo/name">A. Member</a>,
+        who is a member of your group
+        <a class="group"
+           tal:attributes="href view/groupInfo/url"
+           tal:content="view/groupInfo/name">this group</a>.
+        Posts from your group to the email address of the member
+        <code class="email"
+              tal:content="email">a.member@example.com</code>
+        have been repeatedly returned by the provider of the
+        address.
+        Because of this, the email address has been
+        <strong>disabled</strong> &#8213;
+        so
+        <span class="fn" tal:content="userInfo/name">A. Member</span>
+        will no longer be able to post to the group,
+        nor can the member receive posts from the group.
+      </p>
+      <!-- What to do about it -->
+      <p>
+        There are a few things you can do to resolve this situation.
+      </p>
+      <dl>
+        <!-- Remove the person from the group -->
+        <dt>
+          Remove the member
+        </dt>
+        <dd>
+          One possibility is that
+          <span class="fn" tal:content="userInfo/name">A. Member</span>
+          wants to stop receiving posts from the group, so has
+          been marking posts as spam, which has caused the posts
+          to be returned.
+          In this case it would be best to
+          <a href="#"
+             tal:attributes="href string:${view/groupInfo/url}/managemembers.html?showOnly=${userInfo/id}">remove
+            <span class="fn" tal:content="userInfo/name">A. Member</span>
+            from
+            <span class="group"
+                  tal:content="view/groupInfo/name">this group</span>.
+          </a>
+        </dd>
+        <!-- Email the person and help them fix the problem-->
+        <dt>
+          Try and resolve the problem
+        </dt>
+        <dd>
+          You can also contact
+          <span class="fn" tal:content="userInfo/name">A. Member</span>
+          and try to resolve the problem that is causing emails
+          from your group to be returned.
+          <ul>
+            <li>
+              <!-- * Add the group email-address as a contact -->
+              <span class="fn" tal:content="userInfo/name">A. Member</span>
+              may need to add the email address for the group &#8213;
+              <code class="email"
+                    tal:content="view/groupEmail">group@elists.example.com</code>
+               &#8213; as an <strong>email contact.</strong>
+              <a title="Whitelist an email address"
+                 href="http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address/">These instructions</a>
+              may help you do this.
+              <span class="fn" tal:content="userInfo/name">A. Member</span>
+              will need to verify the email address
+              <a tal:attributes="href string:mailto:${email}"
+                 href="#"><code
+                            class="email"
+                            tal:content="email">a.member@example.com</code></a>
+              after the group email address has been added as a contact.
+            </li>
+            <li>
+              You can help
+              <span class="fn" tal:content="userInfo/name">A. Member</span>
+              change which email address is used to receive email
+              from the group, possibly <strong>adding</strong> a
+              new address.
+              (Check to see if
+              <span class="fn" tal:content="userInfo/name">A. Member</span>
+              has changed jobs, because sometimes old email
+              addresses stop working.)
+            </li>
+            <li>
+              <!-- * Check that your inbox is not full -->
+              You can ask
+              <span class="fn" tal:content="userInfo/name">A. Member</span>
+              if there is enough space with the email account.
+              If the member runs out of space email cannot be delivered.
+            </li>
+          </ul>
+        </dd>
+      </dl>
+      <!--Troubleshooting/return/warranty/damage information-->
+      <p>
+        If you have any problems, email us at
+        <a tal:attributes="href python:view.get_support_email(adminInfo, userInfo, email);"
+           href="#"><code tal:content="view/siteInfo/get_support_email"/></a>.
+      </p>
+      <!--Website address-->
+      <p>
+        Kind regards<br/>
+        <span>The
+        <span tal:content="view/siteInfo/name">Site</span>
+        Team</span>
+      </p>
+    </div>
+  </body>
+</html>

@@ -77,13 +77,13 @@
     template="browser/templates/notify-disabled-txt.pt"
     permission="zope2.View" />
   <!-- The "email address disabled" notification to an admin -->
-  <!--browser:page
+  <browser:page
     name="gs-group-member-bounce-disabled-admin.html"
     for="gs.group.base.interfaces.IGSGroupMarker"
-    class="gs.content.email.base.GroupEmail"
+    class=".notifications.NotifyAdminDisabled"
     template="browser/templates/notify-admin-disabled.pt"
-    permission="zope2.View"/>
-  <browser:page
+    permission="zope2.View" />
+  <!--browser:page
     name="gs-group-member-bounce-disabled-admin.txt"
     for="gs.group.base.interfaces.IGSGroupMarker"
     class="gs.content.email.base.GroupEmail"
