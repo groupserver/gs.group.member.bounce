@@ -13,7 +13,7 @@
 #
 ############################################################################
 from __future__ import absolute_import, unicode_literals
-from textwrap import fill
+from textwrap import TextWrapper
 try:
     from urllib import quote
 except ImportError:
@@ -28,6 +28,7 @@ UTF8 = 'utf-8'
 
 
 class NotifyBounce(GroupEmail):
+    supportMsgWrap = TextWrapper(width=74)
 
     def __init__(self, group, request):
         super(NotifyBounce, self).__init__(group, request)
@@ -52,7 +53,7 @@ class NotifyBounce(GroupEmail):
 delivered, and...'''
         b = msg.format(group=self.groupInfo.name, email=email,
                        groupUrl=self.groupInfo.url)
-        fb = fill(b, width=74)
+        fb = self.supportMsgWrap.fill(b)
         body = '''Hello,
 
 {b}
@@ -86,7 +87,7 @@ has been disabled, because of returned posts from "{group}" <{groupUrl}>
 and...'''
         b = msg.format(group=self.groupInfo.name, email=email,
                        groupUrl=self.groupInfo.url)
-        fb = fill(b, width=74)
+        fb = self.supportMsgWrap.fill(b)
         body = '''Hello,
 
 {b}
@@ -122,7 +123,7 @@ returned posts from my group "{group}" <{groupUrl}> and...'''
         b = msg.format(group=self.groupInfo.name, email=email,
                        user=user.name, userUrl=uu,
                        groupUrl=self.groupInfo.url)
-        fb = fill(b, width=74)
+        fb = self.supportMsgWrap.fill(b)
         body = '''Hello,
 
 {b}
@@ -137,8 +138,22 @@ Thanks,
 
 
 class NotifyAdminDisabledText(NotifyAdminDisabled, TextMixin):
+    indentWrapper = TextWrapper(width=74, initial_indent='    ',
+                                subsequent_indent='    ')
+    indentBulletWrapper = TextWrapper(width=74, initial_indent='    * ',
+                                      subsequent_indent='      ')
 
     def __init__(self, group, request):
-        super(NotifyDisabledText, self).__init__(group, request)
+        super(NotifyAdminDisabled, self).__init__(group, request)
         filename = 'admin-disabled-from-{0}.txt'.format(self.groupInfo.id)
         self.set_header(filename)
+
+    @classmethod
+    def indent_fill(cls, mesg):
+        retval = cls.indentWrapper.fill(mesg)
+        return retval
+
+    @classmethod
+    def indent_bullet_fill(cls, mesg):
+        retval = cls.indentBulletWrapper.fill(mesg)
+        return retval

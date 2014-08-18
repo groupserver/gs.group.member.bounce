@@ -83,12 +83,12 @@
     class=".notifications.NotifyAdminDisabled"
     template="browser/templates/notify-admin-disabled.pt"
     permission="zope2.View" />
-  <!--browser:page
+  <browser:page
     name="gs-group-member-bounce-disabled-admin.txt"
     for="gs.group.base.interfaces.IGSGroupMarker"
-    class="gs.content.email.base.GroupEmail"
+    class=".notifications.NotifyAdminDisabledText"
     template="browser/templates/notify-admin-disabled-txt.pt"
-    permission="zope2.View"/-->
+    permission="zope2.View"/>
 
   <!-- Auditor -->
   <utility

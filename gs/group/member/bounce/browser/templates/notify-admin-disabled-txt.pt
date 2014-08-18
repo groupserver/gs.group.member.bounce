@@ -1,0 +1,59 @@
+<tal:block
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  define="userInfo options/userInfo | view/loggedInUserInfo;
+                     adminInfo options/adminInfo | view/loggedInUserInfo;
+                     email options/email | string:me@example.com;">Dear <tal:block content="adminInfo/name">Admin</tal:block>,
+
+<tal:block
+  define="m string:There is a problem with the email address of ${userInfo/name}, who is a member of your group ${view/groupInfo/name}. Posts from your group to the email address of the member — ${email} — have been repeatedly returned by the provider of the address. Because of this, the email address has been disabled, so ${userInfo/name} will no longer be able to post to the group, nor can the member receive posts from the group."
+  content="python:view.fill(m)" />
+
+
+There are a few things you can do to resolve this situation.
+
+
+*Remove* *the* *member*
+
+<tal:block
+  define="m string:One possibility is that ${userInfo/name} wants to stop receiving posts from the group — so has been marking posts as spam, which has caused the posts to be returned. In this case it would be best to remove ${userInfo/name} from your group:"
+  content="python:view.indent_fill(m)" />
+    <tal:block content="string:${view/groupInfo/url}/managemembers.html?showOnly=${userInfo/id}"/>
+
+
+*Try* *and* *resolve* *the* *problem*
+
+<tal:block
+  define="m string:You can also contact ${userInfo/name} and try to resolve the problem that is causing emails from your group to be returned."
+  content="python:view.indent_fill(m)" />
+
+<tal:block
+  define="m string:${userInfo/name} may need to add the email address for the group — ${view/groupEmail} — as an email contact. Here are some instructions on how to do this:"
+  content="python:view.indent_bullet_fill(m)" />
+       http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address
+
+<tal:block
+  define="m string:You can help ${userInfo/name} change which email address is used to receive email from the group, possibly adding a new address. (Check to see if ${userInfo/name} has changed jobs, because sometimes old email addresses stop working.)"
+  content="python:view.indent_bullet_fill(m)" />
+
+<tal:block
+  define="m string:You can ask ${userInfo/name} if there is enough space with the email account. If the member runs out of space email cannot be delivered."
+  content="python:view.indent_bullet_fill(m)" />
+
+
+If you have any problems, email us at
+  <tal:block content="view/siteInfo/get_support_email">this address</tal:block>
+
+Kind regards,
+  The <tal:block content="view/siteInfo/name">Site</tal:block> Team
+
+------------------------------------------------------------------------
+
+Privacy
+  <tal:block content="string:${view/siteInfo/url}/policies/privacy"/>
+
+Acceptable Use
+  <tal:block content="string:${view/siteInfo/url}/policies/aup"/>
+
+Terms of Service
+  <tal:block content="string:${view/siteInfo/url}/policies/tos"/>
+</tal:block>
