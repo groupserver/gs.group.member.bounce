@@ -3,7 +3,7 @@
           email options/email | string:me@example.com;">Dear <tal:block content="userInfo/name">New Member</tal:block>,
 
 <tal:block
-  define="m string:Your email address ${email} has been disabled: you will no longer receive posts at this address, nor can you post from this address to any of your groups at {view/siteInfo/name}. This is because posts to your email address have repeatedly been returned to us by your email provider."
+  define="m string:Your email address ${email} has been disabled: you will no longer receive posts at this address, nor can you post from this address to any of your groups at ${view/siteInfo/name}. This is because posts to your email address have repeatedly been returned to us by your email provider."
            content="python:view.fill(m)" />
 
 <tal:block
