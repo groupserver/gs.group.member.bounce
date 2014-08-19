@@ -7,7 +7,7 @@ Bouncing email reporting for GroupServer
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>
-:Date: 2014-07-31
+:Date: 2014-08-19
 :Organization: `GroupServer.org`_
 :Copyright: This document is licensed under a
   `Creative Commons Attribution-Share Alike 4.0 International License`_
@@ -22,8 +22,9 @@ delivered. These messages are known as **bounces**. This product
 (``gs.group.member.bounce``) provides the system that allows GroupServer_
 to respond to these bounces.
 
-In this document I discuss `how bouncing works`_, and how this product will
-`register a bounce`_.
+In this document I discuss `how bouncing works`_, and how this
+product will `register a bounce`_. I also document the pages_ and
+notifications_ that this product provides.
 
 How Bouncing Works
 ==================
@@ -115,6 +116,25 @@ This product provides two pages:
 
 The latter has not been linked, because currently (2014-07-31)
 the Profile page is a mess, and it needs to be refactored.
+
+Notifications
+=============
+
+Three notifications are provided by this product.
+
+``gs-group-member-bounce-bouncing.html``:
+  A group member is informed that his or her email address is
+  bouncing if he or she has another address, and the group member
+  has not been informed of a bounce today.
+
+``gs-group-member-bounce-disabled.html``:
+  If an address continues to be an issue then it will be
+  disabled, with the Disabled notification sent.
+
+``gs-group-member-bounce-disabled-admin.html``:
+  Finally, if the address is disabled then the group
+  administrators are told of it, unless the person in question is
+  a group administrator, in which case he or she is skipped
 
 Resources
 =========
