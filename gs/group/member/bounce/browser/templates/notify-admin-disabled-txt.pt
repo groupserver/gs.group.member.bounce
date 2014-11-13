@@ -29,7 +29,7 @@ There are a few things you can do to resolve this situation.
 <tal:block
   define="m string:${userInfo/name} may need to add the email address for the group — ${view/groupEmail} — as an email contact. Here are some instructions on how to do this:"
   content="python:view.indent_bullet_fill(m)" />
-       http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address
+       http://onlinegroups.net/blog/2014/02/25/how-to-whitelist-an-email-address/
 
 <tal:block
   define="m string:You can help ${userInfo/name} change which email address is used to receive email from the group, possibly adding a new address. (Check to see if ${userInfo/name} has changed jobs, because sometimes old email addresses stop working.)"
