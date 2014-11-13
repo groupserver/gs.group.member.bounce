@@ -3,7 +3,7 @@
           email options/email | string:me@example.com;">Dear <tal:block content="userInfo/name">New Member</tal:block>,
 
 <tal:block
-  define="m string:A post from ${view/groupInfo/name} was send to you at your address ${email}. However, your email provider sent the post back to us. (This is known as an email bounce.)"
+  define="m string:A post from ${view/groupInfo/name} was sent to you at your address ${email}. However, your email provider sent the post back to us. (This is known as an email bounce.)"
            content="python:view.fill(m)" />
 
 <tal:block
