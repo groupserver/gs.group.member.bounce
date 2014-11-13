@@ -1,6 +1,14 @@
 Changelog
 =========
 
+2.3.2 (2014-10-07)
+------------------
+
+* Switching to GitHub_ as the primary repository
+* Naming the reStrucutredText files as such
+
+.. _GitHub: https://github.com/groupserver/gs.group.member.bounce/
+
 2.3.1 (2014-08-18)
 ------------------
 
