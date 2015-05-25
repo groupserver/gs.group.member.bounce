@@ -27,7 +27,7 @@
         <a class="group"
            tal:attributes="href view/groupInfo/url"
            tal:content="view/groupInfo/name">this group</a>
-        was send to you at your address
+        was sent to you at your address
         <code class="email"
               tal:content="email">your@email.example.com</code>.
         However, your email provider sent the post back to us.
