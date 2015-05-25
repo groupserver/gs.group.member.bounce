@@ -1,6 +1,11 @@
 Changelog
 =========
 
+2.3.3 (2015-05-25)
+------------------
+
+* Fixing a tense error, thanks to Simon Gurnsey
+
 2.3.2 (2014-10-07)
 ------------------
 
