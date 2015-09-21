@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.3.4 (2015-09-21)
+------------------
+
+* Using ``Hello`` rather than ``Dear`` in the opening salutation
+  of the notification
+* Using ``subject`` rather than ``Subject`` in ``mailto:`` URIs
+
 2.3.3 (2015-05-25)
 ------------------
 
