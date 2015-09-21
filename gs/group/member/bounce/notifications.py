@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ############################################################################
 #
-# Copyright © 2014 OnlineGroups.net and Contributors.
+# Copyright © 2014, 2015 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -12,12 +12,8 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ############################################################################
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import, unicode_literals, print_function
 from textwrap import TextWrapper
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.parse import quote
 from zope.cachedescriptors.property import Lazy
 from zope.component import createObject
 from gs.content.email.base import (GroupEmail, TextMixin)
@@ -61,9 +57,7 @@ delivered, and...'''
 Thanks,
     {userName}
     <{userUrl}>'''.format(b=fb, userUrl=uu, userName=user.name)
-        m = 'mailto:{to}?Subject={subj}&body={body}'
-        retval = m.format(to=self.email, subj=quote(subj),
-                          body=quote(body.encode(UTF8)))
+        retval = self.mailto(self.email, subj, body)
         return retval
 
 
@@ -95,9 +89,7 @@ and...'''
 Thanks,
     {userName}
     <{userUrl}>'''.format(b=fb, userUrl=uu, userName=user.name)
-        m = 'mailto:{to}?Subject={subj}&body={body}'
-        retval = m.format(to=self.email, subj=quote(subj),
-                          body=quote(body.encode(UTF8)))
+        retval = self.mailto(self.email, subj, body)
         return retval
 
 
@@ -131,9 +123,7 @@ returned posts from my group "{group}" <{groupUrl}> and...'''
 Thanks,
     {adminName}
     <{adminUrl}>'''.format(b=fb, adminUrl=au, adminName=admin.name)
-        m = 'mailto:{to}?Subject={subj}&body={body}'
-        retval = m.format(to=self.email, subj=quote(subj),
-                          body=quote(body.encode(UTF8)))
+        retval = self.mailto(self.email, subj, body)
         return retval
 
 
