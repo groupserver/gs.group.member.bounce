@@ -16,7 +16,7 @@
          tal:define="userInfo options/userInfo | view/loggedInUserInfo;
                      email options/email | string:me@example.com;">
       <p>
-        Dear
+        Hello
         <span tal:content="userInfo/name">New Member</span>,
       </p>
       <!-- Explain what has happened.-->

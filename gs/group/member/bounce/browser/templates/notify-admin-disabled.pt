@@ -17,7 +17,7 @@
                      adminInfo options/adminInfo | view/loggedInUserInfo;
                      email options/email | string:me@example.com;">
       <p>
-        Dear
+        Hello
         <span class="fn" tal:content="adminInfo/name">Admin</span>,
       </p>
       <!-- Explain what has happened.-->

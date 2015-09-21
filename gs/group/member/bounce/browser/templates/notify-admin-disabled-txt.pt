@@ -2,7 +2,7 @@
   xmlns:tal="http://xml.zope.org/namespaces/tal"
   define="userInfo options/userInfo | view/loggedInUserInfo;
                      adminInfo options/adminInfo | view/loggedInUserInfo;
-                     email options/email | string:me@example.com;">Dear <tal:block content="adminInfo/name">Admin</tal:block>,
+                     email options/email | string:me@example.com;">Hello <tal:block content="adminInfo/name">Admin</tal:block>,
 
 <tal:block
   define="m string:There is a problem with the email address of ${userInfo/name}, who is a member of your group ${view/groupInfo/name}. Posts from your group to the email address of the member — ${email} — have been repeatedly returned by the provider of the address. Because of this, the email address has been disabled, so ${userInfo/name} will no longer be able to post to the group, nor can the member receive posts from the group."
