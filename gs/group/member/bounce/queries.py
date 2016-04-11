@@ -102,7 +102,7 @@ class GroupBounceQuery(object):
 
     @staticmethod
     def map_x(x, items):
-        retval = dict([(i, x[i]) for i in items])
+        retval = {i: x[i] for i in items}
         return retval
 
     def get_bounces_for_group(self, siteId, groupId, limit=100):
